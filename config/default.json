@@ -1,0 +1,7 @@
+{
+    "app": {
+        "port": 7000,
+        "env": "dev",
+        "sqlServer": "local"
+    }
+}
