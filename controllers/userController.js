@@ -1,20 +1,25 @@
 const userService = require('../services/userService');
 
-getUsers = function () {
-    console.log("getUsers Controller")
-    result = userService.listUsers()
-}
+exports.getUsers = async (req, res) => {
+    try {
+        const users = await userService.listUsers();
+        res.json(users);
+    } catch (error) {
+        console.error(error);
+    } finally {
+        userService.closeConnection();
+    }
+};
 
-updateUser = function () {
-    console.log("updateUser Controller")
-}
-
-createUser = function () {
-    console.log("createUser Controller")
-}
-
-deleteUser = function () {
-    console.log("deleteUser Controller")
-}
-
-module.exports = { getUsers, createUser, updateUser, deleteUser }
+exports.loginUser = async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const result = await userService.login(username, password);
+        console.log(result)
+        res.json(result);
+    } catch (error) {
+        console.error(error);
+    } finally {
+        userService.closeConnection();
+    }
+};
