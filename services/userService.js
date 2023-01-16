@@ -4,6 +4,8 @@ const config = require('config');
 const MySQLConnection = require('../utils/MySQLConnection');
 const connection = MySQLConnection.createConnection(config.mysql);
 
+let userQueryFactory = require('../dao/userQueryFactory')
+
 exports.listUsers = async (req, res) => {
     try {
         console.log("reached the service")
@@ -22,12 +24,8 @@ exports.login = (username, password) => {
         } else if (!validator.isLength(password, { min: 8, max: 20 })) {
             reject(new Error('Invalid password'));
         } else {
-
-            if (connection.state === 'disconnected') {
-                connection = new MySQLConnection(config.mysql);
-            }
-
-            const query = `SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`
+            // const query = `SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`
+            const query = userQueryFactory.getQuery('login', { username: username, password: password });
             connection.query(query, values)
                 .then(results => {
                     if (!results.length) {
