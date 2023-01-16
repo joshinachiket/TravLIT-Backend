@@ -6,3 +6,17 @@
 {"level":"error","message":"values is not defined"}
 {"level":"error","message":"values is not defined"}
 {"level":"error","message":"values is not defined"}
+{"level":"error","message":"values is not defined"}
+{"level":"error","message":"values is not defined"}
+{"level":"error","message":"Unknown column 'Nachiket' in 'where clause'"}
+{"level":"error","message":"Can't add new command when connection is in closed state"}
+{"level":"error","message":"Unknown column 'Nachiket' in 'where clause'"}
+{"level":"error","message":"Unknown column 'Nachiket' in 'where clause'"}
+{"level":"info","message":"User Nachiket successfully logged in"}
+{"level":"error","message":"Can't add new command when connection is in closed state"}
+{"level":"error","message":"Can't add new command when connection is in closed state"}
+{"level":"info","message":"User Nachiket successfully logged in"}
+{"level":"error","message":"Can't add new command when connection is in closed state"}
+{"level":"info","message":"User Nachiket successfully logged in"}
+{"level":"error","message":"Can't add new command when connection is in closed state"}
+{"level":"info","message":"User Nachiket successfully logged in"}

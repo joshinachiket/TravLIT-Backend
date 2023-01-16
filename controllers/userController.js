@@ -12,8 +12,6 @@ exports.getUsers = async (req, res) => {
     } catch (error) {
         logger.log('error', `User ${username} successfully logged in`);
         res.status(error.statusCode || 500).json({ message: error.message });
-    } finally {
-        userService.closeConnection();
     }
 };
 
