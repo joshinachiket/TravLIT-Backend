@@ -14,9 +14,12 @@ class MySQLConnection {
                 } else {
                     resolve(results);
                 }
-                this.connection.end();
             });
         });
+    }
+
+    end() {
+        this.connection.end()
     }
 
 }

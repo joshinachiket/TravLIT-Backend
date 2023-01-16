@@ -12,8 +12,11 @@ exports.listUsers = async (req, res) => {
         const query = userQueryFactory.getQuery('listUsers');
         const results = await connection.query(query);
         console.log(results);
+        //connection.end();
+        return results
     } catch (error) {
         console.error(error);
+        //connection.destroy();
     }
 };
 
@@ -25,9 +28,6 @@ exports.login = (username, password) => {
         } else if (!validator.isLength(password, { min: 8, max: 20 })) {
             reject(new Error('Invalid password'));
         } else {
-            if (connection.state === 'disconnected') {
-                connection = new MySQLConnection(config.mysql);
-            }
             const query = userQueryFactory.getQuery('login', { username: username, password: password });
             connection.query(query).then(results => {
                 if (!results.length) {
