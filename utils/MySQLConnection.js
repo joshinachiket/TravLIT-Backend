@@ -14,13 +14,13 @@ class MySQLConnection {
                 } else {
                     resolve(results);
                 }
+                this.connection.end();
             });
         });
     }
 
-    close() {
-        this.connection.end();
-    }
 }
 
-module.exports = MySQLConnection;
+module.exports = {
+    createConnection: options => new MySQLConnection(options)
+}

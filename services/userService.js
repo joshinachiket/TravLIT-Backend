@@ -1,12 +1,8 @@
-const MySQLConnection = require('../utils/MySQLConnection');
+const validator = require('validator');
+const config = require('config');
 
-const connection = new MySQLConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'travellit',
-    database: 'user',
-    port: 3306
-});
+const MySQLConnection = require('../utils/MySQLConnection');
+const connection = MySQLConnection.createConnection(config.mysql);
 
 exports.listUsers = async (req, res) => {
     try {
@@ -20,26 +16,31 @@ exports.listUsers = async (req, res) => {
 
 exports.login = (username, password) => {
     return new Promise((resolve, reject) => {
-        console.log("honey")
-        connection.query(
-            'SELECT * FROM users WHERE username = ? AND password = ?',
-            [username, password],
-            (error, results) => {
-                if (error) {
-                    reject(error);
-                } else if (!results.length) {
-                    const err = new Error('Invalid credentials');
-                    err.statusCode = 401;
-                    reject(err);
-                } else {
-                    console.log(results)
-                    resolve({ message: 'login successful' });
-                }
+
+        if (!validator.isAlphanumeric(username) || !validator.isLength(username, { min: 4, max: 12 })) {
+            reject(new Error('Invalid username'));
+        } else if (!validator.isLength(password, { min: 8, max: 20 })) {
+            reject(new Error('Invalid password'));
+        } else {
+
+            if (connection.state === 'disconnected') {
+                connection = new MySQLConnection(config.mysql);
             }
-        );
+
+            const query = `SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`
+            connection.query(query, values)
+                .then(results => {
+                    if (!results.length) {
+                        const err = new Error('Invalid credentials');
+                        err.statusCode = 401;
+                        reject(err);
+                    } else {
+                        resolve({ message: 'login successful' });
+                    }
+                })
+                .catch(error => {
+                    reject(error);
+                })
+        }
     });
 };
-
-exports.closeConnection = function () {
-    connection.close()
-}

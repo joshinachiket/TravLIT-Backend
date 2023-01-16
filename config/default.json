@@ -3,5 +3,26 @@
         "port": 7000,
         "env": "dev",
         "sqlServer": "local"
+    },
+    "mysql": {
+        "host": "localhost",
+        "user": "root",
+        "password": "travellit",
+        "database": "user",
+        "port": 3306
+    },
+    "log": {
+        "level": "debug",
+        "console": true,
+        "file": {
+            "enabled": true,
+            "filename": "logfile.log"
+        },
+        "http": {
+            "enabled": false,
+            "host": "logging.example.com",
+            "port": 8080,
+            "path": "/log"
+        }
     }
 }
